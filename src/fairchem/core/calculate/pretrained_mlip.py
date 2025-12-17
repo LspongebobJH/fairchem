@@ -94,7 +94,10 @@ def get_predict_unit(
     Raises:
         KeyError: If the specified model_name is not found in available models.
     """
-    checkpoint_path = pretrained_checkpoint_path_from_name(model_name)
+    if model_name in available_models:
+        checkpoint_path = pretrained_checkpoint_path_from_name(model_name)
+    else:
+        checkpoint_path = model_name
     atom_refs = get_reference_energies(model_name, "atom_refs", cache_dir)
 
     if _MODEL_CKPTS.checkpoints[model_name].form_elem_refs is not None:
